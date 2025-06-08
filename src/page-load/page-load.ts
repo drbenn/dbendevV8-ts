@@ -7,8 +7,12 @@ export class PageLoadComponent {
   progressText: HTMLElement;
 
   constructor() {
-    this.element = document.createElement('div');
-    this.element.innerHTML = html;
+    // this.element = document.createElement('div');
+    // this.element.innerHTML = html;
+
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    this.element = template.content.firstElementChild as HTMLElement;
 
     this.progressBar = this.element.querySelector('.progress-bar-fill')!;
     this.progressText = this.element.querySelector('.progress-bar-text')!;

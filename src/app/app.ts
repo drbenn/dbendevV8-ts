@@ -8,8 +8,9 @@ export class AppComponent {
   
 
   constructor() {
-    this.element = document.createElement('div');
-    this.element.innerHTML = html;
+    const template = document.createElement('template');
+    template.innerHTML = html.trim();
+    this.element = template.content.firstElementChild as HTMLElement;
   }
 
   mount(parent: HTMLElement) {
@@ -21,12 +22,19 @@ export class AppComponent {
 
   async lazyLoadThreeComponent() {
     this.pageLoadComponent = new PageLoadComponent();
-    this.pageLoadComponent.mount(document.body);
+    console.log(document)
+    // this.pageLoadComponent.mount(document.body);
+    const pageLoadSlot = this.element.querySelector<HTMLDivElement>('#page-load-component-slot');
+    if (pageLoadSlot) {
+      this.pageLoadComponent.mount(pageLoadSlot);
+    } else {
+      console.warn('PageLoadComponent slot not found!');
+    }
 
     
     // Simulate loading progress (replace this with real progress if loading assets)
     for (let progress = 0; progress <= 100; progress += 2) {
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 30));
       this.pageLoadComponent!.setProgress(progress);
     }
 
@@ -34,12 +42,24 @@ export class AppComponent {
     const ThreeModule = await import('../three/three');
     const ThreeComponent = ThreeModule.ThreeComponent;
     
-    const onProgress = (percent: number) => { this.pageLoadComponent?.setProgress(percent); };
+    const onProgress = (percent: number) => { 
+      console.log(percent)
+      this.pageLoadComponent?.setProgress(percent); 
+    
+    };
     const threeComponent = new ThreeComponent(onProgress);
-    threeComponent.mount(document.body); // absolute background
-
+    // threeComponent.mount(document.body); // absolute background
+      const threeSlot = this.element.querySelector<HTMLDivElement>('#three-component-slot');
+  if (threeSlot) {
     // Remove progress bar
     this.pageLoadComponent!.unmount();
+    // Add Three background
+    threeComponent.mount(threeSlot);
+  } else {
+    console.warn('ThreeComponent slot not found!');
+  }
+
+
   }
   
 }

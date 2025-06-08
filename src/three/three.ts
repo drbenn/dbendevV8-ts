@@ -44,7 +44,7 @@ export class ThreeComponent {
 
     this.camera.position.z = 5;
 
-    // light is required to view textures on models!!! otherwise they will be black!
+    // light is required to view textures on models!!! otherwise they will be black
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(0, 10, 10);
     this.scene.add(light);
