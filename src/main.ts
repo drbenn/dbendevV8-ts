@@ -41,9 +41,9 @@ import { ThreeComponent } from './three/three.ts';
 
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+// document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
-`;
+// `;
 
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!);
 
@@ -51,5 +51,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 const appComponent = new AppComponent();
 appComponent.mount(document.querySelector<HTMLDivElement>('#app')!);
 
-const threeComponent = new ThreeComponent();
-threeComponent.mount(document.querySelector<HTMLDivElement>('#app')!);
+// const threeComponent = new ThreeComponent();
+// threeComponent.mount(document.querySelector<HTMLDivElement>('#app')!);
+
+// const ThreeModule = await import('./three/three.ts/ThreeComponent');
+// const ThreeComponent = ThreeModule.ThreeComponent;
